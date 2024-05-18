@@ -1,0 +1,32 @@
+name: nasa_apod
+
+sdkPath: .fvm/flutter_sdk
+
+packages:
+  - apps/**
+  - packages/**
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+scripts:
+  ###############################################
+  ##              BUILD COMMANDS               ##
+  ###############################################
+  build:pub_get:all:
+    run: |
+      fvm flutter clean && \
+      fvm flutter pub get
+    exec:
+      concurrency: 6
+    description: Clean Flutter package and install dependencies
+
+  build:codegen:
+    run: fvm flutter pub run build_runner build --delete-conflicting-outputs
+    exec:
+      concurrency: 1
+      orderDependents: true
+    packageFilters:
+      dependsOn: "build_runner"
+    description: Run code generation using build_runner in a specific package
