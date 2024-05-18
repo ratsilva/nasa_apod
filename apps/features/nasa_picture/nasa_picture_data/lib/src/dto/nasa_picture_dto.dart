@@ -8,6 +8,7 @@ class NasaPictureDto {
   final String title;
   final String explanation;
   final String url;
+  @JsonKey(name: "date")
   final DateTime dateTime;
 
   const NasaPictureDto({
