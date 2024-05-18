@@ -44,5 +44,7 @@ class NasaPictureContainer {
         SearchEngine<FilterableNasaPicture>(StartWithFilterMatcher()),
       ),
     );
+
+    _getIt.registerSingleton(NasaPictureNavigation(_get(), _get()));
   }
 }

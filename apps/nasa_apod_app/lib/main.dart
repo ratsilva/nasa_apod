@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'app/integrations/app_integration.dart';
 import 'app/nasa_apod_app.dart';
+import 'app/navigation/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,5 +13,7 @@ void main() async {
     await integration.setUp();
   }
 
-  runApp(NasaApodApp());
+  final appRouter = AppRouter(getIt).router;
+
+  runApp(NasaApodApp(router: appRouter));
 }
