@@ -15,3 +15,6 @@ dependencies:
 
   nasa_picture_domain:
     path: nasa_picture_domain
+
+  nasa_picture_presentation:
+    path: nasa_picture_presentation

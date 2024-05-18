@@ -1,0 +1,54 @@
+import 'package:core_architecture/core_architecture.dart';
+import 'package:flutter/material.dart';
+import 'package:nasa_picture_domain/nasa_picture_domain.dart';
+
+import 'bloc/nasa_picture_list_bloc.dart';
+import 'bloc/nasa_picture_list_event.dart';
+import 'bloc/nasa_picture_list_state.dart';
+import 'screen/nasa_picture_list_screen.dart';
+
+class NasaPictureListProvider extends StatefulWidget with Provider {
+  final NasaPictureGetListUseCase getListUseCase;
+
+  const NasaPictureListProvider({
+    required this.getListUseCase,
+    super.key,
+  });
+
+  @override
+  State<NasaPictureListProvider> createState() => _NasaPictureListProviderState();
+}
+
+class _NasaPictureListProviderState extends State<NasaPictureListProvider> {
+  late NasaPictureListBloc _bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _bloc = NasaPictureListBloc(widget.getListUseCase);
+
+    _bloc.add(NasaPictureListStartEvent());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseBlocProvider<NasaPictureListBloc, NasaPictureListState>(
+      create: (_) => _bloc,
+      builder: (context, state) {
+        return NasaPictureListScreen(
+          state: state,
+          onSearchChanged: _handleOnSearchChanged,
+          onItemTapped: _handleOnItemTapped,
+        );
+      },
+    );
+  }
+
+  void _handleOnSearchChanged(String searchTerm) {
+    _bloc.add(NasaPictureListSearchEvent(searchTerm));
+  }
+
+  void _handleOnItemTapped(NasaPicture picture) {
+    // implement detail screen navigation
+  }
+}
