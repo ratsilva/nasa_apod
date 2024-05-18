@@ -1,6 +1,8 @@
-# melos_managed_dependency_overrides: core_architecture,core_foundation
+# melos_managed_dependency_overrides: core_architecture,core_foundation,nasa_picture_domain
 dependency_overrides:
   core_architecture:
     path: ../../../packages/core_architecture
   core_foundation:
     path: ../../../packages/core_foundation
+  nasa_picture_domain:
+    path: nasa_picture_domain

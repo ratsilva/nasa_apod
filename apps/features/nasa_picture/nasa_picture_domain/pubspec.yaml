@@ -1,0 +1,21 @@
+name: nasa_picture_domain
+description: "Domain layer for Nasa picture feature"
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  core_architecture:
+    path: ../../../../packages/core_architecture
+
+  core_foundation:
+    path: ../../../../packages/core_foundation
+
+dev_dependencies:
+  build_runner: ^2.4.9
+  flutter_test:
+    sdk: flutter
+  freezed: ^2.5.2
+  mockito: ^5.4.4
