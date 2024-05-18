@@ -5,7 +5,6 @@ import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:storage_service/src/exception/key_value_storage_exception.dart';
 import 'package:storage_service/src/storage/hive/path_provider.dart';
-import 'package:storage_service/src/storage/key_value_storage.dart';
 import 'package:storage_service/storage_service.dart';
 
 import '../mocks/mocks.mocks.dart';

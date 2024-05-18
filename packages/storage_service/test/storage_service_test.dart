@@ -1,6 +1,5 @@
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:storage_service/src/storage/key_value_storage.dart';
 import 'package:storage_service/storage_service.dart';
 
 import 'mocks/mocks.mocks.dart';
