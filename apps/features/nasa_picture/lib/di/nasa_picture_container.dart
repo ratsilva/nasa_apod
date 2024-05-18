@@ -34,7 +34,10 @@ class NasaPictureContainer {
     );
 
     _getIt.registerFactory(
-      () => NasaPictureListModule(_get()),
+      () => NasaPictureListModule(
+        _get(),
+        SearchEngine<FilterableNasaPicture>(StartWithFilterMatcher()),
+      ),
     );
   }
 }

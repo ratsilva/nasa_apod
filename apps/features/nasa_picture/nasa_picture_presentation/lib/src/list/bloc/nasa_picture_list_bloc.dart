@@ -7,8 +7,9 @@ import 'nasa_picture_list_state.dart';
 
 class NasaPictureListBloc extends BaseBloc<NasaPictureListEvent, NasaPictureListState> {
   final NasaPictureGetListUseCase _getListUseCase;
+  final SearchEngine<FilterableNasaPicture> _searchEngine;
 
-  NasaPictureListBloc(this._getListUseCase) : super(NasaPictureListState()) {
+  NasaPictureListBloc(this._getListUseCase, this._searchEngine) : super(NasaPictureListState()) {
     on<NasaPictureListStartEvent>(_handleStartEvent);
     on<NasaPictureListSearchEvent>(_handleSearchEvent);
   }
@@ -21,9 +22,7 @@ class NasaPictureListBloc extends BaseBloc<NasaPictureListEvent, NasaPictureList
       _getListUseCase.call(unit),
       onData: (Result<List<NasaPicture>, NasaPictureGetListException> result) => result.when(
         success: (pictures) => state.copy(pictures: pictures),
-        exception: (e) {
-          return state.copy(error: true);
-        },
+        exception: (_) => state.copy(error: true),
       )!,
     );
   }
@@ -32,6 +31,10 @@ class NasaPictureListBloc extends BaseBloc<NasaPictureListEvent, NasaPictureList
     NasaPictureListSearchEvent event,
     Emitter<NasaPictureListState> emit,
   ) async {
-    // implement filter logic
+    final filteredPictures = _searchEngine
+        .matches(event.searchTerm, state.pictures!.map((c) => c.filterable).toList())
+        .map((m) => m.source)
+        .toList();
+    emit(state.copy(searchPictures: filteredPictures));
   }
 }

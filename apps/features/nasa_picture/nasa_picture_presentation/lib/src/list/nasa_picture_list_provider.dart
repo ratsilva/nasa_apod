@@ -9,9 +9,11 @@ import 'screen/nasa_picture_list_screen.dart';
 
 class NasaPictureListProvider extends StatefulWidget with Provider {
   final NasaPictureGetListUseCase getListUseCase;
+  final SearchEngine<FilterableNasaPicture> searchEngine;
 
   const NasaPictureListProvider({
     required this.getListUseCase,
+    required this.searchEngine,
     super.key,
   });
 
@@ -25,7 +27,7 @@ class _NasaPictureListProviderState extends State<NasaPictureListProvider> {
   @override
   void initState() {
     super.initState();
-    _bloc = NasaPictureListBloc(widget.getListUseCase);
+    _bloc = NasaPictureListBloc(widget.getListUseCase, widget.searchEngine);
 
     _bloc.add(NasaPictureListStartEvent());
   }

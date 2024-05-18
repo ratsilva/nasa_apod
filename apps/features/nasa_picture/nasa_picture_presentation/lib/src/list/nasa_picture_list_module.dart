@@ -5,8 +5,9 @@ import 'nasa_picture_list_provider.dart';
 
 class NasaPictureListModule with Module<EmptyParameters> {
   final NasaPictureGetListUseCase _getListUseCase;
+  final SearchEngine<FilterableNasaPicture> _searchEngine;
 
-  const NasaPictureListModule(this._getListUseCase);
+  const NasaPictureListModule(this._getListUseCase, this._searchEngine);
 
   @override
   String get route => "nasa_picture_list";
@@ -15,6 +16,7 @@ class NasaPictureListModule with Module<EmptyParameters> {
   NasaPictureListProvider build(EmptyParameters parameters) {
     return NasaPictureListProvider(
       getListUseCase: _getListUseCase,
+      searchEngine: _searchEngine,
     );
   }
 }
