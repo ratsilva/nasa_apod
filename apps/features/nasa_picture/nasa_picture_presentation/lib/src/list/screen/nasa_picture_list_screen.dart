@@ -83,7 +83,10 @@ class _SuccessContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gridView = NasaPictureGridView(pictures: pictures);
+    final gridView = NasaPictureGridView(
+      pictures: pictures,
+      onItemTapped: onItemTapped,
+    );
 
     final searchBar = NasaPictureSearchBar(
       onChanged: onSearchChanged,
