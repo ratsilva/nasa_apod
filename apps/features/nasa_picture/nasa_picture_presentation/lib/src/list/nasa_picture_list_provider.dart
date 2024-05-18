@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nasa_picture_domain/nasa_picture_domain.dart';
 
 import '../detail/nasa_picture_detail_module.dart';
+import '../navigation/nasa_picture_navigation.dart';
 import 'bloc/nasa_picture_list_bloc.dart';
 import 'bloc/nasa_picture_list_event.dart';
 import 'bloc/nasa_picture_list_state.dart';
@@ -53,7 +54,10 @@ class _NasaPictureListProviderState extends State<NasaPictureListProvider> {
     _bloc.add(NasaPictureListSearchEvent(searchTerm));
   }
 
-  void _handleOnItemTapped(NasaPicture picture) {
-    // implement detail screen navigation
+  void _handleOnItemTapped(NasaPicture picture, BuildContext context) {
+    context.pushNamed(
+      NasaPictureRoutes.details.name,
+      extra: NasaPictureDetailModuleParameters(dateTime: picture.dateTime),
+    );
   }
 }

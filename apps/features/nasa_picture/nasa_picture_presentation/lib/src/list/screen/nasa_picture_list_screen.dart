@@ -9,7 +9,7 @@ import '../components/nasa_picture_search_bar.dart';
 class NasaPictureListScreen extends StatelessWidget with Screen {
   final NasaPictureListState state;
   final Function(String) onSearchChanged;
-  final Function(NasaPicture) onItemTapped;
+  final Function(NasaPicture, BuildContext) onItemTapped;
 
   const NasaPictureListScreen({
     required this.state,
@@ -73,7 +73,7 @@ class _ErrorContent extends StatelessWidget {
 class _SuccessContent extends StatelessWidget {
   final List<NasaPicture> pictures;
   final Function(String) onSearchChanged;
-  final Function(NasaPicture) onItemTapped;
+  final Function(NasaPicture, BuildContext) onItemTapped;
 
   const _SuccessContent({
     required this.pictures,

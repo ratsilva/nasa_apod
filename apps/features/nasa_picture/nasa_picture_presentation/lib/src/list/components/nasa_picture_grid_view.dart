@@ -6,7 +6,7 @@ import 'nasa_picture_item.dart';
 ///
 class NasaPictureGridView extends StatelessWidget {
   final List<NasaPicture> pictures;
-  final Function(NasaPicture) onItemTapped;
+  final Function(NasaPicture, BuildContext) onItemTapped;
 
   const NasaPictureGridView({
     Key? key,
@@ -25,8 +25,8 @@ class NasaPictureGridView extends StatelessWidget {
       ),
       shrinkWrap: true,
       itemCount: pictures.length,
-      itemBuilder: (_, int index) => GestureDetector(
-        onTap: () => onItemTapped(pictures[index]),
+      itemBuilder: (context, index) => GestureDetector(
+        onTap: () => onItemTapped(pictures[index], context),
         child: NasaPictureItem(picture: pictures[index]),
       ),
     );
