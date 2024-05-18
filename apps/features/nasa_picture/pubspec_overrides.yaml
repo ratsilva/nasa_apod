@@ -1,0 +1,6 @@
+# melos_managed_dependency_overrides: core_architecture,core_foundation
+dependency_overrides:
+  core_architecture:
+    path: ../../../packages/core_architecture
+  core_foundation:
+    path: ../../../packages/core_foundation

@@ -1,0 +1,11 @@
+name: nasa_picture
+description: "Nasa Picture feature main package"
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  core_architecture:
+    path: ../../../packages/core_architecture
