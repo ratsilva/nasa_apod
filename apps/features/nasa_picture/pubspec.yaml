@@ -10,5 +10,8 @@ dependencies:
   core_architecture:
     path: ../../../packages/core_architecture
 
+  nasa_picture_data:
+    path: nasa_picture_data
+
   nasa_picture_domain:
     path: nasa_picture_domain
