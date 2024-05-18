@@ -15,7 +15,6 @@ void main() {
 
     expect(result, picture.filterable);
   });
-
   test("when filter by date matches", () {
     final result = picture.filterable.filter("2024-01-01", StartWithFilterMatcher());
 
