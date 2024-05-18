@@ -1,5 +1,6 @@
 library core_architecture;
 
+export 'src/navigation/app_navigation.dart';
 export 'src/presentation/bloc/base_bloc_provider.dart';
 export 'src/presentation/bloc/base_bloc.dart';
 export 'src/presentation/module.dart';
