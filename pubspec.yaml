@@ -1,5 +1,5 @@
 name: nasa_apod
-description: "Nasa APOD flutter application"
+description: "Nasa APOD flutter application root package"
 publish_to: "none"
 
 version: 1.0.0+1
