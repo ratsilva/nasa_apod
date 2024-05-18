@@ -11,6 +11,9 @@ dependencies:
   core_architecture:
     path: ../../packages/core_architecture
 
+  nasa_picture:
+    path: ../features/nasa_picture
+
   network_service:
     path: ../../packages/network_service
 
