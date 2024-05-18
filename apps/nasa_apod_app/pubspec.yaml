@@ -1,0 +1,28 @@
+name: nasa_apod_app
+description: "Nasa APOD main flutter application"
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  core_architecture:
+    path: ../../packages/core_architecture
+
+  network_service:
+    path: ../../packages/network_service
+
+  storage_service:
+    path: ../../packages/storage_service
+
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
