@@ -34,7 +34,7 @@ void main() {
 
         setUp(() {
           rawResponse = "[{\"name\":\"one\"},{\"name\":\"two\"}]";
-          formattedResponse = [_DataFromServer("one"), _DataFromServer("two")];
+          formattedResponse = const [_DataFromServer("one"), _DataFromServer("two")];
 
           response = Response(
             data: Uint8List.fromList(utf8.encode(rawResponse)),
@@ -174,12 +174,12 @@ class _DataFromServer {
 
   @override
   operator ==(Object o) {
-    return o is _DataFromServer && o.name == this.name;
+    return o is _DataFromServer && o.name == name;
   }
 
   @override
   int get hashCode {
-    return this.name.hashCode ^ 31;
+    return name.hashCode ^ 31;
   }
 }
 

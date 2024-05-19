@@ -42,7 +42,7 @@ void main() {
     });
 
     test("should handle error when it does not exist", () async {
-      final exception = _CustomException("key does not exist");
+      const exception = _CustomException("key does not exist");
       when(storage.get(key)).thenThrow(exception);
 
       expect(
