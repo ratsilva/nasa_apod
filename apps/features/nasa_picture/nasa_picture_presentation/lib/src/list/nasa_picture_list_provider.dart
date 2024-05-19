@@ -1,4 +1,5 @@
 import 'package:core_architecture/core_architecture.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nasa_picture_domain/nasa_picture_domain.dart';
 
@@ -46,6 +47,7 @@ class _NasaPictureListProviderState extends State<NasaPictureListProvider> {
           onSearchChanged: _handleOnSearchChanged,
           onItemTapped: _handleOnItemTapped,
           onListEndReached: _handleOnListEndReached,
+          onManualRefreshed: _handleOnManualRefreshed,
         );
       },
     );
@@ -65,5 +67,11 @@ class _NasaPictureListProviderState extends State<NasaPictureListProvider> {
 
   void _handleOnListEndReached() {
     _bloc.add(NasaPictureListNextPageEvent());
+  }
+
+  Future<void> _handleOnManualRefreshed() {
+    FocusScope.of(context).unfocus();
+    _bloc.add(NasaPictureListStartEvent());
+    return SynchronousFuture(null);
   }
 }

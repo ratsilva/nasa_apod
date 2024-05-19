@@ -11,12 +11,14 @@ class NasaPictureListScreen extends StatelessWidget with Screen {
   final Function(String) onSearchChanged;
   final Function(NasaPicture, BuildContext) onItemTapped;
   final VoidCallback onListEndReached;
+  final Future<void> Function() onManualRefreshed;
 
   const NasaPictureListScreen({
     required this.state,
     required this.onSearchChanged,
     required this.onItemTapped,
     required this.onListEndReached,
+    required this.onManualRefreshed,
     super.key,
   });
 
@@ -34,6 +36,7 @@ class NasaPictureListScreen extends StatelessWidget with Screen {
         onSearchChanged: onSearchChanged,
         onItemTapped: onItemTapped,
         onListEndReached: onListEndReached,
+        onManualRefreshed: onManualRefreshed,
       );
     }
 
@@ -79,12 +82,14 @@ class _SuccessContent extends StatelessWidget {
   final Function(String) onSearchChanged;
   final Function(NasaPicture, BuildContext) onItemTapped;
   final VoidCallback onListEndReached;
+  final Future<void> Function() onManualRefreshed;
 
   const _SuccessContent({
     required this.pictures,
     required this.onSearchChanged,
     required this.onItemTapped,
     required this.onListEndReached,
+    required this.onManualRefreshed,
   });
 
   @override
@@ -111,7 +116,10 @@ class _SuccessContent extends StatelessWidget {
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
               onVerticalDragDown: (_) => FocusScope.of(context).unfocus(),
-              child: gridView,
+              child: RefreshIndicator(
+                onRefresh: onManualRefreshed,
+                child: gridView,
+              ),
             ),
           ),
         ],

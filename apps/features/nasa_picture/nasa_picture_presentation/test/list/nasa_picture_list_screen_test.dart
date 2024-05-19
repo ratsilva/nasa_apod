@@ -33,7 +33,7 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('on success state', (tester) async {
+    testWidgets('on success state with data', (tester) async {
       when(bloc.state).thenReturn(NasaPictureListState(pictures: [picture]));
       await tester.pumpListScreen(bloc);
 
@@ -62,6 +62,7 @@ extension on WidgetTester {
               onSearchChanged: (_) {},
               onItemTapped: (_, __) {},
               onListEndReached: () {},
+              onManualRefreshed: () async {},
             );
           },
         ),

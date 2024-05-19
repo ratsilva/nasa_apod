@@ -18,6 +18,25 @@ class NasaPictureGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (pictures.isEmpty) {
+      return Stack(children: [
+        Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Flexible(child: Image.asset("assets/images/empty-box.png", fit: BoxFit.contain)),
+            const SizedBox(height: 16),
+            Flexible(
+              child: Text("Ops, no results found...", textAlign: TextAlign.center),
+              flex: 3,
+            ),
+          ],
+        ),
+        ListView(),
+      ]);
+    }
+
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: context.columnCount,
