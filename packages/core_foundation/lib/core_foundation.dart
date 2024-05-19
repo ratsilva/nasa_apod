@@ -3,6 +3,7 @@ library core_foundation;
 export 'src/extensions/object_extensions.dart';
 export 'src/extensions/stream_extensions.dart';
 export 'src/exception/base_exception.dart';
+export 'src/formatters/date_formatter.dart';
 export 'src/types/result.dart';
 export 'src/types/unit.dart';
 
