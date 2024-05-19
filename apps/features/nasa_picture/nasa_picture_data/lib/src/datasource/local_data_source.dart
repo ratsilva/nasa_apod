@@ -33,8 +33,6 @@ class LocalDataSourceImpl with LocalDataSource {
 
   @override
   Future<List<NasaPictureDto>> getAll() {
-    return _storageService.filter(_kKeyPrefix, NasaPictureDto.fromJson).catchError((e) {
-      print(e);
-    });
+    return _storageService.filter(_kKeyPrefix, NasaPictureDto.fromJson);
   }
 }
