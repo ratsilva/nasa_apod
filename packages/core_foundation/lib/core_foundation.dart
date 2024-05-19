@@ -1,5 +1,6 @@
 library core_foundation;
 
+export 'src/extensions/collection_extensions.dart';
 export 'src/extensions/object_extensions.dart';
 export 'src/extensions/stream_extensions.dart';
 export 'src/exception/base_exception.dart';
