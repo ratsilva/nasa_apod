@@ -115,6 +115,23 @@ class MockStorageService extends _i1.Mock implements _i4.StorageService {
       ) as _i2.Future<Model>);
 
   @override
+  _i2.Future<List<Model>> filter<Model>(
+    String? keyPrefix,
+    Model Function(Map<String, dynamic>)? deserializer,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #filter,
+          [
+            keyPrefix,
+            deserializer,
+          ],
+        ),
+        returnValue: _i2.Future<List<Model>>.value(<Model>[]),
+        returnValueForMissingStub: _i2.Future<List<Model>>.value(<Model>[]),
+      ) as _i2.Future<List<Model>>);
+
+  @override
   _i2.Future<Model> put<Model>(
     Map<String, dynamic>? json,
     String? key,
@@ -233,6 +250,18 @@ class MockLocalDataSource extends _i1.Mock implements _i8.LocalDataSource {
       ) as _i2.Future<_i3.NasaPictureDto>);
 
   @override
+  _i2.Future<List<_i3.NasaPictureDto>> getAll() => (super.noSuchMethod(
+        Invocation.method(
+          #getAll,
+          [],
+        ),
+        returnValue:
+            _i2.Future<List<_i3.NasaPictureDto>>.value(<_i3.NasaPictureDto>[]),
+        returnValueForMissingStub:
+            _i2.Future<List<_i3.NasaPictureDto>>.value(<_i3.NasaPictureDto>[]),
+      ) as _i2.Future<List<_i3.NasaPictureDto>>);
+
+  @override
   _i2.Future<List<_i3.NasaPictureDto>> upsertAll(
           List<_i3.NasaPictureDto>? pictures) =>
       (super.noSuchMethod(
@@ -245,6 +274,28 @@ class MockLocalDataSource extends _i1.Mock implements _i8.LocalDataSource {
         returnValueForMissingStub:
             _i2.Future<List<_i3.NasaPictureDto>>.value(<_i3.NasaPictureDto>[]),
       ) as _i2.Future<List<_i3.NasaPictureDto>>);
+
+  @override
+  String buildKey(DateTime? date) => (super.noSuchMethod(
+        Invocation.method(
+          #buildKey,
+          [date],
+        ),
+        returnValue: _i5.dummyValue<String>(
+          this,
+          Invocation.method(
+            #buildKey,
+            [date],
+          ),
+        ),
+        returnValueForMissingStub: _i5.dummyValue<String>(
+          this,
+          Invocation.method(
+            #buildKey,
+            [date],
+          ),
+        ),
+      ) as String);
 }
 
 /// A class which mocks [RemoteDataSource].

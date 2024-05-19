@@ -87,6 +87,7 @@ void main() {
         dateTime: dateTime,
       );
 
+      when(localDataSource.getAll()).thenAnswer((_) => Future.value([dto]));
       when(remoteDataSource.getAll()).thenAnswer((_) => Future.value([dto]));
       when(localDataSource.upsertAll([dto])).thenAnswer((_) => Future.value([dto]));
 
@@ -107,7 +108,9 @@ void main() {
       expect(expected, isTrue);
     });
 
-    test("should retrieve data successfully when even if localDataSource returns error", () async {
+    test(
+        "should retrieve data successfully when localDataSource fails and remoteDataSource returns data",
+        () async {
       /// arrange
       final dto = NasaPictureDto(
         title: "title",
@@ -115,9 +118,11 @@ void main() {
         url: "url",
         dateTime: dateTime,
       );
+
       final exception = Exception("error");
+      when(localDataSource.getAll()).thenAnswer((_) => Future.error(exception));
       when(remoteDataSource.getAll()).thenAnswer((_) => Future.value([dto]));
-      when(localDataSource.upsertAll([dto])).thenAnswer((_) => Future.error(exception));
+      when(localDataSource.upsertAll([dto])).thenAnswer((_) => Future.value([dto]));
 
       /// act
       final result = await repositoryImpl.getList().first;
@@ -136,9 +141,42 @@ void main() {
       expect(expected, isTrue);
     });
 
-    test("should failure when remoteDataSource return error", () async {
+    test(
+        "should retrieve data successfully when localDataSource return data and remoteDataSource fails",
+        () async {
+      /// arrange
+      final dto = NasaPictureDto(
+        title: "title",
+        explanation: "explanation",
+        url: "url",
+        dateTime: dateTime,
+      );
+
+      final exception = Exception("error");
+      when(localDataSource.getAll()).thenAnswer((_) => Future.value([dto]));
+      when(remoteDataSource.getAll()).thenAnswer((_) => Future.error(exception));
+
+      /// act
+      final result = await repositoryImpl.getList().first;
+
+      /// assert
+      var expected = false;
+      result.when(
+        success: (data) {
+          expect(data, [dto.toEntity()]);
+          expected = true;
+        },
+        exception: (e) {
+          throw e;
+        },
+      );
+      expect(expected, isTrue);
+    });
+
+    test("should failure when localDataSource and remoteDataSource fails", () async {
       /// arrange
       final exception = Exception("error");
+      when(localDataSource.getAll()).thenAnswer((_) => Future.error(exception));
       when(remoteDataSource.getAll()).thenAnswer((_) => Future.error(exception));
 
       /// act

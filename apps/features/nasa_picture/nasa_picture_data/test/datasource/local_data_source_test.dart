@@ -8,6 +8,7 @@ import '../mocks/mocks.mocks.dart';
 
 void main() {
   late NasaPictureDto dto;
+  late String key;
 
   late StorageService storageService;
   late LocalDataSource localDataSource;
@@ -22,29 +23,39 @@ void main() {
 
     storageService = MockStorageService();
     localDataSource = LocalDataSourceImpl(storageService);
+
+    key = localDataSource.buildKey(dto.dateTime);
   });
 
   test("getByDate", () async {
-    when(storageService.get(dto.dateTime.toIso8601String(), NasaPictureDto.fromJson))
-        .thenAnswer((_) => Future.value(dto));
+    when(storageService.get(key, NasaPictureDto.fromJson)).thenAnswer((_) => Future.value(dto));
 
     final result = await localDataSource.getByDate(dto.dateTime);
 
     expect(result, dto);
 
-    verify(storageService.get(dto.dateTime.toIso8601String(), NasaPictureDto.fromJson)).called(1);
+    verify(storageService.get(key, NasaPictureDto.fromJson)).called(1);
+  });
+
+  test("getAll", () async {
+    when(storageService.filter("NasaPictureDto", NasaPictureDto.fromJson))
+        .thenAnswer((_) => Future.value([dto]));
+
+    final result = await localDataSource.getAll();
+
+    expect(result, [dto]);
+
+    verify(storageService.filter("NasaPictureDto", NasaPictureDto.fromJson)).called(1);
   });
 
   test("upsertAll", () async {
-    when(storageService.put(dto.toJson(), dto.dateTime.toIso8601String(), NasaPictureDto.fromJson))
+    when(storageService.put(dto.toJson(), key, NasaPictureDto.fromJson))
         .thenAnswer((_) => Future.value(dto));
 
     final result = await localDataSource.upsertAll([dto]);
 
     expect(result, [dto]);
 
-    verify(storageService.put(
-            dto.toJson(), dto.dateTime.toIso8601String(), NasaPictureDto.fromJson))
-        .called(1);
+    verify(storageService.put(dto.toJson(), key, NasaPictureDto.fromJson)).called(1);
   });
 }

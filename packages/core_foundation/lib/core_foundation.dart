@@ -7,3 +7,4 @@ export 'src/types/result.dart';
 export 'src/types/unit.dart';
 
 export 'package:collection/collection.dart';
+export 'package:rxdart/rxdart.dart';
