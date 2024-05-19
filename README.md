@@ -1,5 +1,8 @@
 # NASA - Astronomy Picture of the Day App
 
+[![codebeat badge](https://codebeat.co/badges/9c19f627-20e8-4ebf-8a75-71bffff1d0bb)](https://codebeat.co/projects/github-com-ratsilva-nasa_apod-main)
+[![CodeFactor](https://www.codefactor.io/repository/github/ratsilva/nasa_apod/badge)](https://www.codefactor.io/repository/github/ratsilva/nasa_apod)
+
 Astronomy Picture of the Day App is a flutter project built using the best practices of modern software methodologies and architecture.
 
 ## Application Scope
