@@ -20,7 +20,7 @@ class NasaPictureDetailScreen extends StatelessWidget with Screen {
     if (state.loading == true) {
       body = const _LoadingContent();
     } else if (state.error == true) {
-      body = _ErrorContent(errorMessage: "");
+      body = const _ErrorContent();
     } else {
       body = _SuccessContent(
         picture: state.picture!,
@@ -52,13 +52,14 @@ class _LoadingContent extends StatelessWidget {
 
 ///
 class _ErrorContent extends StatelessWidget {
-  final String errorMessage;
-
-  const _ErrorContent({required this.errorMessage});
+  const _ErrorContent();
 
   @override
   Widget build(BuildContext context) {
-    return Text("Error: $errorMessage");
+    return Text(
+      "Ops, something went wrong...",
+      textAlign: TextAlign.center,
+    );
   }
 }
 
