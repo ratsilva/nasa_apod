@@ -46,10 +46,11 @@ class MockNasaPictureRepository extends _i1.Mock
 
   @override
   _i3.Stream<_i4.Result<List<_i5.NasaPicture>, _i2.NasaPictureGetListException>>
-      getList() => (super.noSuchMethod(
+      getList(_i3.StreamController<bool>? nextPageTrigger) =>
+          (super.noSuchMethod(
             Invocation.method(
               #getList,
-              [],
+              [nextPageTrigger],
             ),
             returnValue: _i3.Stream<
                 _i4.Result<List<_i5.NasaPicture>,

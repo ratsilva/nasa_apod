@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:core_architecture/core_architecture.dart';
 import 'package:core_foundation/core_foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,6 +16,7 @@ void main() {
   late NasaPicture picture;
   late NasaPictureGetListUseCase getListUseCase;
   late SearchEngine<FilterableNasaPicture> searchEngine;
+  late StreamController<bool> controller;
   late NasaPictureListBloc bloc;
 
   setUp(() {
@@ -26,8 +29,9 @@ void main() {
 
     getListUseCase = MockNasaPictureGetListUseCase();
     searchEngine = MockSearchEngine();
+    controller = MockStreamController();
 
-    bloc = NasaPictureListBloc(getListUseCase, searchEngine);
+    bloc = NasaPictureListBloc(getListUseCase, searchEngine, streamBuilder: () => controller);
   });
 
   test("initial state", () {
@@ -38,7 +42,7 @@ void main() {
   group("NasaPictureListStartEvent", () {
     test("on success", () {
       final result = Result<List<NasaPicture>, NasaPictureGetListException>.success([picture]);
-      when(getListUseCase.call(unit)).thenAnswer((_) => Stream.value(result));
+      when(getListUseCase.call(controller)).thenAnswer((_) => Stream.value(result));
 
       final expectedStates = [
         NasaPictureListState(),
@@ -52,7 +56,7 @@ void main() {
     test("on exception", () {
       final exception = NasaPictureGetListException.generic("error");
       final result = Result<List<NasaPicture>, NasaPictureGetListException>.exception(exception);
-      when(getListUseCase.call(unit)).thenAnswer((_) => Stream.value(result));
+      when(getListUseCase.call(controller)).thenAnswer((_) => Stream.value(result));
 
       final expectedStates = [
         NasaPictureListState(),
@@ -69,7 +73,7 @@ void main() {
 
     test("on filtering", () {
       final result = Result<List<NasaPicture>, NasaPictureGetListException>.success([picture]);
-      when(getListUseCase.call(unit)).thenAnswer((_) => Stream.value(result));
+      when(getListUseCase.call(controller)).thenAnswer((_) => Stream.value(result));
 
       when(searchEngine.matches(searchTerm, [picture.filterable])).thenReturn([picture.filterable]);
 
@@ -82,6 +86,25 @@ void main() {
       expectBloc(bloc, emitsInOrder(expectedStates));
       bloc.add(NasaPictureListStartEvent());
       bloc.add(NasaPictureListSearchEvent(searchTerm));
+    });
+  });
+
+  group("NasaPictureListNextPageEvent", () {
+    test("on fetching next page", () async {
+      final result = Result<List<NasaPicture>, NasaPictureGetListException>.success([picture]);
+      when(getListUseCase.call(controller)).thenAnswer((_) => Stream.value(result));
+
+      final expectedStates = [
+        NasaPictureListState(),
+        NasaPictureListState(pictures: [picture]),
+      ];
+
+      expectBloc(bloc, emitsInOrder(expectedStates));
+      bloc.add(NasaPictureListStartEvent());
+      bloc.add(NasaPictureListNextPageEvent());
+
+      await Future.delayed(const Duration(milliseconds: 10));
+      verify(controller.add(true)).called(2);
     });
   });
 }

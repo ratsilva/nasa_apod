@@ -5,15 +5,23 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i2;
 
+import 'package:core_architecture/core_architecture.dart' as _i12;
+import 'package:core_architecture/src/engine/pagination/document/page_document.dart'
+    as _i4;
+import 'package:core_architecture/src/engine/pagination/source/pagination_source.dart'
+    as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i5;
-import 'package:nasa_picture_data/src/datasource/local_data_source.dart' as _i8;
+import 'package:mockito/src/dummies.dart' as _i7;
+import 'package:nasa_picture_data/src/datasource/local_data_source.dart'
+    as _i10;
+import 'package:nasa_picture_data/src/datasource/pagination/nasa_picture_pagination_engine.dart'
+    as _i13;
 import 'package:nasa_picture_data/src/datasource/remote_data_source.dart'
-    as _i9;
+    as _i11;
 import 'package:nasa_picture_data/src/dto/nasa_picture_dto.dart' as _i3;
-import 'package:network_service/network_service.dart' as _i6;
-import 'package:network_service/src/target/target.dart' as _i7;
-import 'package:storage_service/storage_service.dart' as _i4;
+import 'package:network_service/network_service.dart' as _i8;
+import 'package:network_service/src/target/target.dart' as _i9;
+import 'package:storage_service/storage_service.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -49,10 +57,21 @@ class _FakeNasaPictureDto_1 extends _i1.SmartFake
         );
 }
 
+class _FakePaginationSource_2<T1 extends _i4.PageDocument, Params1>
+    extends _i1.SmartFake implements _i5.PaginationSource<T1, Params1> {
+  _FakePaginationSource_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [StorageService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockStorageService extends _i1.Mock implements _i4.StorageService {
+class MockStorageService extends _i1.Mock implements _i6.StorageService {
   @override
   _i2.Future<Model> get<Model>(
     String? key,
@@ -66,8 +85,8 @@ class MockStorageService extends _i1.Mock implements _i4.StorageService {
             deserializer,
           ],
         ),
-        returnValue: _i5.ifNotNull(
-              _i5.dummyValueOrNull<Model>(
+        returnValue: _i7.ifNotNull(
+              _i7.dummyValueOrNull<Model>(
                 this,
                 Invocation.method(
                   #get,
@@ -89,8 +108,8 @@ class MockStorageService extends _i1.Mock implements _i4.StorageService {
                 ],
               ),
             ),
-        returnValueForMissingStub: _i5.ifNotNull(
-              _i5.dummyValueOrNull<Model>(
+        returnValueForMissingStub: _i7.ifNotNull(
+              _i7.dummyValueOrNull<Model>(
                 this,
                 Invocation.method(
                   #get,
@@ -146,8 +165,8 @@ class MockStorageService extends _i1.Mock implements _i4.StorageService {
             deserializer,
           ],
         ),
-        returnValue: _i5.ifNotNull(
-              _i5.dummyValueOrNull<Model>(
+        returnValue: _i7.ifNotNull(
+              _i7.dummyValueOrNull<Model>(
                 this,
                 Invocation.method(
                   #put,
@@ -171,8 +190,8 @@ class MockStorageService extends _i1.Mock implements _i4.StorageService {
                 ],
               ),
             ),
-        returnValueForMissingStub: _i5.ifNotNull(
-              _i5.dummyValueOrNull<Model>(
+        returnValueForMissingStub: _i7.ifNotNull(
+              _i7.dummyValueOrNull<Model>(
                 this,
                 Invocation.method(
                   #put,
@@ -202,10 +221,10 @@ class MockStorageService extends _i1.Mock implements _i4.StorageService {
 /// A class which mocks [NetworkService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkService extends _i1.Mock implements _i6.NetworkService {
+class MockNetworkService extends _i1.Mock implements _i8.NetworkService {
   @override
   _i2.Future<List<Model>> requestList<Model>(
-    _i7.Target? target,
+    _i9.Target? target,
     Model Function(Map<String, dynamic>)? deserializer,
   ) =>
       (super.noSuchMethod(
@@ -224,7 +243,7 @@ class MockNetworkService extends _i1.Mock implements _i6.NetworkService {
 /// A class which mocks [LocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocalDataSource extends _i1.Mock implements _i8.LocalDataSource {
+class MockLocalDataSource extends _i1.Mock implements _i10.LocalDataSource {
   @override
   _i2.Future<_i3.NasaPictureDto> getByDate(DateTime? date) =>
       (super.noSuchMethod(
@@ -281,14 +300,14 @@ class MockLocalDataSource extends _i1.Mock implements _i8.LocalDataSource {
           #buildKey,
           [date],
         ),
-        returnValue: _i5.dummyValue<String>(
+        returnValue: _i7.dummyValue<String>(
           this,
           Invocation.method(
             #buildKey,
             [date],
           ),
         ),
-        returnValueForMissingStub: _i5.dummyValue<String>(
+        returnValueForMissingStub: _i7.dummyValue<String>(
           this,
           Invocation.method(
             #buildKey,
@@ -301,16 +320,86 @@ class MockLocalDataSource extends _i1.Mock implements _i8.LocalDataSource {
 /// A class which mocks [RemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRemoteDataSource extends _i1.Mock implements _i9.RemoteDataSource {
+class MockRemoteDataSource extends _i1.Mock implements _i11.RemoteDataSource {
   @override
-  _i2.Future<List<_i3.NasaPictureDto>> getAll() => (super.noSuchMethod(
+  _i2.Future<List<_i3.NasaPictureDto>> getAll({
+    required DateTime? startDate,
+    required DateTime? endDate,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getAll,
           [],
+          {
+            #startDate: startDate,
+            #endDate: endDate,
+          },
         ),
         returnValue:
             _i2.Future<List<_i3.NasaPictureDto>>.value(<_i3.NasaPictureDto>[]),
         returnValueForMissingStub:
             _i2.Future<List<_i3.NasaPictureDto>>.value(<_i3.NasaPictureDto>[]),
       ) as _i2.Future<List<_i3.NasaPictureDto>>);
+}
+
+/// A class which mocks [PaginationEngine].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPaginationEngine<T extends _i4.PageDocument, Params> extends _i1.Mock
+    implements _i12.PaginationEngine<T, Params> {
+  @override
+  _i5.PaginationSource<T, Params> get source => (super.noSuchMethod(
+        Invocation.getter(#source),
+        returnValue: _FakePaginationSource_2<T, Params>(
+          this,
+          Invocation.getter(#source),
+        ),
+        returnValueForMissingStub: _FakePaginationSource_2<T, Params>(
+          this,
+          Invocation.getter(#source),
+        ),
+      ) as _i5.PaginationSource<T, Params>);
+
+  @override
+  _i2.Stream<Set<T>> documents(
+    _i2.Stream<bool>? nextPageTrigger,
+    int? size,
+    Params? params,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #documents,
+          [
+            nextPageTrigger,
+            size,
+            params,
+          ],
+        ),
+        returnValue: _i2.Stream<Set<T>>.empty(),
+        returnValueForMissingStub: _i2.Stream<Set<T>>.empty(),
+      ) as _i2.Stream<Set<T>>);
+}
+
+/// A class which mocks [NasaPicturePaginationEngine].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockNasaPicturePaginationEngine extends _i1.Mock
+    implements _i13.NasaPicturePaginationEngine {
+  @override
+  _i2.Stream<List<_i3.NasaPictureDto>> pictures({
+    required _i2.StreamController<bool>? nextPageTrigger,
+    int? pageSize = 15,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #pictures,
+          [],
+          {
+            #nextPageTrigger: nextPageTrigger,
+            #pageSize: pageSize,
+          },
+        ),
+        returnValue: _i2.Stream<List<_i3.NasaPictureDto>>.empty(),
+        returnValueForMissingStub: _i2.Stream<List<_i3.NasaPictureDto>>.empty(),
+      ) as _i2.Stream<List<_i3.NasaPictureDto>>);
 }

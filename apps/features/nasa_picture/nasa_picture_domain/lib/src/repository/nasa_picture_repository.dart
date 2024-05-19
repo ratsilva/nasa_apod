@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:core_foundation/core_foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,7 +11,9 @@ part 'nasa_picture_repository.freezed.dart';
 mixin NasaPictureRepository {
   Stream<Result<NasaPicture, NasaPictureGetException>> get(DateTime date);
 
-  Stream<Result<List<NasaPicture>, NasaPictureGetListException>> getList();
+  Stream<Result<List<NasaPicture>, NasaPictureGetListException>> getList(
+    StreamController<bool> nextPageTrigger,
+  );
 }
 
 ///

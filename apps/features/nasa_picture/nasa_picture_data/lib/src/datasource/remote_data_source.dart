@@ -1,3 +1,4 @@
+import 'package:core_foundation/core_foundation.dart';
 import 'package:network_service/network_service.dart';
 import 'package:network_service/src/target/http_method.dart';
 
@@ -5,7 +6,10 @@ import '../dto/nasa_picture_dto.dart';
 
 ///
 mixin RemoteDataSource {
-  Future<List<NasaPictureDto>> getAll();
+  Future<List<NasaPictureDto>> getAll({
+    required DateTime startDate,
+    required DateTime endDate,
+  });
 }
 
 ///
@@ -15,14 +19,22 @@ class RemoteDataSourceImpl with RemoteDataSource {
   const RemoteDataSourceImpl(this._networkService);
 
   @override
-  Future<List<NasaPictureDto>> getAll() {
-    final target = NasaPictureTarget();
+  Future<List<NasaPictureDto>> getAll({
+    required DateTime startDate,
+    required DateTime endDate,
+  }) {
+    final target = NasaPictureTarget(startDate, endDate);
     return _networkService.requestList(target, NasaPictureDto.fromJson);
   }
 }
 
 ///
 class NasaPictureTarget extends Target {
+  final DateTime startDate;
+  final DateTime endDate;
+
+  NasaPictureTarget(this.startDate, this.endDate);
+
   @override
   HttpMethod get method => HttpMethod.get;
 
@@ -31,7 +43,7 @@ class NasaPictureTarget extends Target {
 
   @override
   Map<String, dynamic>? get queryParameters => {
-        "start_date": "2024-04-14",
-        "end_date": "2024-05-16",
+        "start_date": DateFormatter().formatyyyyMMdd(startDate),
+        "end_date": DateFormatter().formatyyyyMMdd(endDate),
       };
 }

@@ -61,6 +61,7 @@ extension on WidgetTester {
               state: state,
               onSearchChanged: (_) {},
               onItemTapped: (_, __) {},
+              onListEndReached: () {},
             );
           },
         ),

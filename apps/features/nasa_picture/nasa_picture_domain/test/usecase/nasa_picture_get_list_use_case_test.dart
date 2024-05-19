@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:core_foundation/core_foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -8,12 +10,14 @@ import 'package:nasa_picture_domain/src/usecase/nasa_picture_get_list_use_case.d
 import '../mocks/mocks.mocks.dart';
 
 void main() {
+  late StreamController<bool> streamController;
   late DateTime dateTime;
 
   late NasaPictureRepository repository;
   late NasaPictureGetListUseCase useCase;
 
   setUp(() {
+    streamController = StreamController<bool>();
     dateTime = DateTime(2024, 1, 1);
 
     repository = MockNasaPictureRepository();
@@ -30,10 +34,10 @@ void main() {
     );
     final mockResponse = Result<List<NasaPicture>, NasaPictureGetListException>.success([picture]);
 
-    when(repository.getList()).thenAnswer((_) => Stream.value(mockResponse));
+    when(repository.getList(streamController)).thenAnswer((_) => Stream.value(mockResponse));
 
     /// act
-    final result = await useCase(unit).first;
+    final result = await useCase(streamController).first;
 
     /// assert
     var expected = false;
@@ -55,10 +59,10 @@ void main() {
     final mockResponse =
         Result<List<NasaPicture>, NasaPictureGetListException>.exception(exception);
 
-    when(repository.getList()).thenAnswer((_) => Stream.value(mockResponse));
+    when(repository.getList(streamController)).thenAnswer((_) => Stream.value(mockResponse));
 
     /// act
-    final result = await useCase(unit).first;
+    final result = await useCase(streamController).first;
 
     /// assert
     var expected = false;

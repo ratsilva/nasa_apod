@@ -21,6 +21,12 @@ class NasaPictureContainer {
       () => RemoteDataSourceImpl(_get()) as RemoteDataSource,
     );
 
+    _getIt.registerLazySingleton(() => NasaPicturePaginationEngine(
+          PaginationEngine(
+            NasaPicturePaginationSource(_get(), _get()),
+          ),
+        ));
+
     _getIt.registerFactory(
       () => NasaPictureRepositoryImpl(_get(), _get()) as NasaPictureRepository,
     );

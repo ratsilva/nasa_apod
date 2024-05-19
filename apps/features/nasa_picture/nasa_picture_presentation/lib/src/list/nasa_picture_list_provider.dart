@@ -45,6 +45,7 @@ class _NasaPictureListProviderState extends State<NasaPictureListProvider> {
           state: state,
           onSearchChanged: _handleOnSearchChanged,
           onItemTapped: _handleOnItemTapped,
+          onListEndReached: _handleOnListEndReached,
         );
       },
     );
@@ -60,5 +61,9 @@ class _NasaPictureListProviderState extends State<NasaPictureListProvider> {
       NasaPictureRoutes.details.name,
       extra: NasaPictureDetailModuleParameters(dateTime: picture.dateTime),
     );
+  }
+
+  void _handleOnListEndReached() {
+    _bloc.add(NasaPictureListNextPageEvent());
   }
 }

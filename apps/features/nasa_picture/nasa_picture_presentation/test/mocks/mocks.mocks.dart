@@ -3,12 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
 import 'package:core_architecture/core_architecture.dart' as _i9;
 import 'package:core_foundation/core_foundation.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:nasa_picture_domain/nasa_picture_domain.dart' as _i4;
+import 'package:nasa_picture_domain/nasa_picture_domain.dart' as _i5;
 import 'package:nasa_picture_domain/src/entity/nasa_picture.dart' as _i7;
 import 'package:nasa_picture_domain/src/repository/nasa_picture_repository.dart'
     as _i8;
@@ -60,25 +60,35 @@ class _FakeNasaPictureDetailState_1 extends _i1.SmartFake
         );
 }
 
+class _FakeStreamSink_2<S> extends _i1.SmartFake implements _i4.StreamSink<S> {
+  _FakeStreamSink_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [NasaPictureGetListUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockNasaPictureGetListUseCase extends _i1.Mock
-    implements _i4.NasaPictureGetListUseCase {
+    implements _i5.NasaPictureGetListUseCase {
   @override
-  _i5.Stream<_i6.Result<List<_i7.NasaPicture>, _i8.NasaPictureGetListException>>
-      call(_i6.Unit? params) => (super.noSuchMethod(
+  _i4.Stream<_i6.Result<List<_i7.NasaPicture>, _i8.NasaPictureGetListException>>
+      call(_i4.StreamController<bool>? params) => (super.noSuchMethod(
             Invocation.method(
               #call,
               [params],
             ),
-            returnValue: _i5.Stream<
+            returnValue: _i4.Stream<
                 _i6.Result<List<_i7.NasaPicture>,
                     _i8.NasaPictureGetListException>>.empty(),
-            returnValueForMissingStub: _i5.Stream<
+            returnValueForMissingStub: _i4.Stream<
                 _i6.Result<List<_i7.NasaPicture>,
                     _i8.NasaPictureGetListException>>.empty(),
-          ) as _i5.Stream<
+          ) as _i4.Stream<
               _i6
               .Result<List<_i7.NasaPicture>, _i8.NasaPictureGetListException>>);
 }
@@ -87,20 +97,20 @@ class MockNasaPictureGetListUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockNasaPictureGetUseCase extends _i1.Mock
-    implements _i4.NasaPictureGetUseCase {
+    implements _i5.NasaPictureGetUseCase {
   @override
-  _i5.Stream<_i6.Result<_i7.NasaPicture, _i8.NasaPictureGetException>> call(
+  _i4.Stream<_i6.Result<_i7.NasaPicture, _i8.NasaPictureGetException>> call(
           DateTime? date) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [date],
         ),
-        returnValue: _i5.Stream<
+        returnValue: _i4.Stream<
             _i6.Result<_i7.NasaPicture, _i8.NasaPictureGetException>>.empty(),
-        returnValueForMissingStub: _i5.Stream<
+        returnValueForMissingStub: _i4.Stream<
             _i6.Result<_i7.NasaPicture, _i8.NasaPictureGetException>>.empty(),
-      ) as _i5
+      ) as _i4
           .Stream<_i6.Result<_i7.NasaPicture, _i8.NasaPictureGetException>>);
 }
 
@@ -146,11 +156,11 @@ class MockNasaPictureListBloc extends _i1.Mock
       ) as _i2.NasaPictureListState);
 
   @override
-  _i5.Stream<_i2.NasaPictureListState> get stream => (super.noSuchMethod(
+  _i4.Stream<_i2.NasaPictureListState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i5.Stream<_i2.NasaPictureListState>.empty(),
-        returnValueForMissingStub: _i5.Stream<_i2.NasaPictureListState>.empty(),
-      ) as _i5.Stream<_i2.NasaPictureListState>);
+        returnValue: _i4.Stream<_i2.NasaPictureListState>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i2.NasaPictureListState>.empty(),
+      ) as _i4.Stream<_i2.NasaPictureListState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -158,6 +168,16 @@ class MockNasaPictureListBloc extends _i1.Mock
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+
+  @override
+  _i4.Future<void> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
   void add(_i11.NasaPictureListEvent? event) => super.noSuchMethod(
@@ -211,16 +231,6 @@ class MockNasaPictureListBloc extends _i1.Mock
         ),
         returnValueForMissingStub: null,
       );
-
-  @override
-  _i5.Future<void> close() => (super.noSuchMethod(
-        Invocation.method(
-          #close,
-          [],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
 
   @override
   void onChange(_i9.Change<_i2.NasaPictureListState>? change) =>
@@ -284,12 +294,12 @@ class MockNasaPictureDetailBloc extends _i1.Mock
       ) as _i3.NasaPictureDetailState);
 
   @override
-  _i5.Stream<_i3.NasaPictureDetailState> get stream => (super.noSuchMethod(
+  _i4.Stream<_i3.NasaPictureDetailState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i5.Stream<_i3.NasaPictureDetailState>.empty(),
+        returnValue: _i4.Stream<_i3.NasaPictureDetailState>.empty(),
         returnValueForMissingStub:
-            _i5.Stream<_i3.NasaPictureDetailState>.empty(),
-      ) as _i5.Stream<_i3.NasaPictureDetailState>);
+            _i4.Stream<_i3.NasaPictureDetailState>.empty(),
+      ) as _i4.Stream<_i3.NasaPictureDetailState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -353,14 +363,14 @@ class MockNasaPictureDetailBloc extends _i1.Mock
       );
 
   @override
-  _i5.Future<void> close() => (super.noSuchMethod(
+  _i4.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
   void onChange(_i9.Change<_i3.NasaPictureDetailState>? change) =>
@@ -403,4 +413,144 @@ class MockNasaPictureDetailBloc extends _i1.Mock
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [StreamController].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockStreamController extends _i1.Mock
+    implements _i4.StreamController<bool> {
+  @override
+  set onListen(void Function()? _onListen) => super.noSuchMethod(
+        Invocation.setter(
+          #onListen,
+          _onListen,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set onPause(void Function()? _onPause) => super.noSuchMethod(
+        Invocation.setter(
+          #onPause,
+          _onPause,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set onResume(void Function()? _onResume) => super.noSuchMethod(
+        Invocation.setter(
+          #onResume,
+          _onResume,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set onCancel(_i4.FutureOr<void> Function()? _onCancel) => super.noSuchMethod(
+        Invocation.setter(
+          #onCancel,
+          _onCancel,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Stream<bool> get stream => (super.noSuchMethod(
+        Invocation.getter(#stream),
+        returnValue: _i4.Stream<bool>.empty(),
+        returnValueForMissingStub: _i4.Stream<bool>.empty(),
+      ) as _i4.Stream<bool>);
+
+  @override
+  _i4.StreamSink<bool> get sink => (super.noSuchMethod(
+        Invocation.getter(#sink),
+        returnValue: _FakeStreamSink_2<bool>(
+          this,
+          Invocation.getter(#sink),
+        ),
+        returnValueForMissingStub: _FakeStreamSink_2<bool>(
+          this,
+          Invocation.getter(#sink),
+        ),
+      ) as _i4.StreamSink<bool>);
+
+  @override
+  bool get isClosed => (super.noSuchMethod(
+        Invocation.getter(#isClosed),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get isPaused => (super.noSuchMethod(
+        Invocation.getter(#isPaused),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  bool get hasListener => (super.noSuchMethod(
+        Invocation.getter(#hasListener),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i4.Future<dynamic> get done => (super.noSuchMethod(
+        Invocation.getter(#done),
+        returnValue: _i4.Future<dynamic>.value(),
+        returnValueForMissingStub: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
+
+  @override
+  void add(bool? event) => super.noSuchMethod(
+        Invocation.method(
+          #add,
+          [event],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addError(
+    Object? error, [
+    StackTrace? stackTrace,
+  ]) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #addError,
+          [
+            error,
+            stackTrace,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<dynamic> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<dynamic>.value(),
+        returnValueForMissingStub: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
+
+  @override
+  _i4.Future<dynamic> addStream(
+    _i4.Stream<bool>? source, {
+    bool? cancelOnError,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addStream,
+          [source],
+          {#cancelOnError: cancelOnError},
+        ),
+        returnValue: _i4.Future<dynamic>.value(),
+        returnValueForMissingStub: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
 }

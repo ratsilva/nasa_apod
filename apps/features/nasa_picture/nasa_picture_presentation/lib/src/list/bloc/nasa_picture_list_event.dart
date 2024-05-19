@@ -6,3 +6,5 @@ class NasaPictureListSearchEvent implements NasaPictureListEvent {
   final String searchTerm;
   NasaPictureListSearchEvent(this.searchTerm);
 }
+
+class NasaPictureListNextPageEvent implements NasaPictureListEvent {}

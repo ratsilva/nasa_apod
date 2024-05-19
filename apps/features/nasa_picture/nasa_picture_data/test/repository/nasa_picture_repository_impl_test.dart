@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nasa_picture_data/src/datasource/local_data_source.dart';
-import 'package:nasa_picture_data/src/datasource/remote_data_source.dart';
+import 'package:nasa_picture_data/src/datasource/pagination/nasa_picture_pagination_engine.dart';
 import 'package:nasa_picture_data/src/dto/nasa_picture_dto.dart';
 import 'package:nasa_picture_data/src/repository/nasa_picture_repository_impl.dart';
 import 'package:nasa_picture_domain/nasa_picture_domain.dart';
@@ -9,19 +11,21 @@ import 'package:nasa_picture_domain/nasa_picture_domain.dart';
 import '../mocks/mocks.mocks.dart';
 
 void main() {
+  late StreamController<bool> nextPageTrigger;
   late DateTime dateTime;
 
   late LocalDataSource localDataSource;
-  late RemoteDataSource remoteDataSource;
+  late NasaPicturePaginationEngine nasaPicturePaginationEngine;
   late NasaPictureRepositoryImpl repositoryImpl;
 
   setUp(() {
+    nextPageTrigger = StreamController<bool>();
     dateTime = DateTime(2024, 1, 1);
 
     localDataSource = MockLocalDataSource();
-    remoteDataSource = MockRemoteDataSource();
+    nasaPicturePaginationEngine = MockNasaPicturePaginationEngine();
 
-    repositoryImpl = NasaPictureRepositoryImpl(localDataSource, remoteDataSource);
+    repositoryImpl = NasaPictureRepositoryImpl(localDataSource, nasaPicturePaginationEngine);
   });
 
   group("get method", () {
@@ -77,8 +81,7 @@ void main() {
   });
 
   group("getList method", () {
-    test("should retrieve data successfully when remoteDataSource and localDataSource returns data",
-        () async {
+    test("should retrieve data successfully when paginationEngine returns data", () async {
       /// arrange
       final dto = NasaPictureDto(
         title: "title",
@@ -87,12 +90,11 @@ void main() {
         dateTime: dateTime,
       );
 
-      when(localDataSource.getAll()).thenAnswer((_) => Future.value([dto]));
-      when(remoteDataSource.getAll()).thenAnswer((_) => Future.value([dto]));
-      when(localDataSource.upsertAll([dto])).thenAnswer((_) => Future.value([dto]));
+      when(nasaPicturePaginationEngine.pictures(nextPageTrigger: nextPageTrigger))
+          .thenAnswer((_) => Stream.value([dto]));
 
       /// act
-      final result = await repositoryImpl.getList().first;
+      final result = await repositoryImpl.getList(nextPageTrigger).first;
 
       /// assert
       var expected = false;
@@ -108,79 +110,14 @@ void main() {
       expect(expected, isTrue);
     });
 
-    test(
-        "should retrieve data successfully when localDataSource fails and remoteDataSource returns data",
-        () async {
-      /// arrange
-      final dto = NasaPictureDto(
-        title: "title",
-        explanation: "explanation",
-        url: "url",
-        dateTime: dateTime,
-      );
-
-      final exception = Exception("error");
-      when(localDataSource.getAll()).thenAnswer((_) => Future.error(exception));
-      when(remoteDataSource.getAll()).thenAnswer((_) => Future.value([dto]));
-      when(localDataSource.upsertAll([dto])).thenAnswer((_) => Future.value([dto]));
-
-      /// act
-      final result = await repositoryImpl.getList().first;
-
-      /// assert
-      var expected = false;
-      result.when(
-        success: (data) {
-          expect(data, [dto.toEntity()]);
-          expected = true;
-        },
-        exception: (e) {
-          throw e;
-        },
-      );
-      expect(expected, isTrue);
-    });
-
-    test(
-        "should retrieve data successfully when localDataSource return data and remoteDataSource fails",
-        () async {
-      /// arrange
-      final dto = NasaPictureDto(
-        title: "title",
-        explanation: "explanation",
-        url: "url",
-        dateTime: dateTime,
-      );
-
-      final exception = Exception("error");
-      when(localDataSource.getAll()).thenAnswer((_) => Future.value([dto]));
-      when(remoteDataSource.getAll()).thenAnswer((_) => Future.error(exception));
-
-      /// act
-      final result = await repositoryImpl.getList().first;
-
-      /// assert
-      var expected = false;
-      result.when(
-        success: (data) {
-          expect(data, [dto.toEntity()]);
-          expected = true;
-        },
-        exception: (e) {
-          throw e;
-        },
-      );
-      expect(expected, isTrue);
-    });
-
-    test("should failure when localDataSource and remoteDataSource fails", () async {
+    test("should failure when paginationEngine returns error", () async {
       /// arrange
       final exception = Exception("error");
-      when(localDataSource.getAll()).thenAnswer((_) => Future.error(exception));
-      when(remoteDataSource.getAll()).thenAnswer((_) => Future.error(exception));
+      when(nasaPicturePaginationEngine.pictures(nextPageTrigger: nextPageTrigger))
+          .thenAnswer((_) => Stream.error(exception));
 
       /// act
-      final result = await repositoryImpl.getList().first;
+      final result = await repositoryImpl.getList(nextPageTrigger).first;
 
       /// assert
       var expected = false;

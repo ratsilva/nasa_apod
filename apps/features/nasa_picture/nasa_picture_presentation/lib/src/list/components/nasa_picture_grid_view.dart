@@ -7,11 +7,13 @@ import 'nasa_picture_item.dart';
 class NasaPictureGridView extends StatelessWidget {
   final List<NasaPicture> pictures;
   final Function(NasaPicture, BuildContext) onItemTapped;
+  final VoidCallback onListEndReached;
 
   const NasaPictureGridView({
     Key? key,
     required this.pictures,
     required this.onItemTapped,
+    required this.onListEndReached,
   }) : super(key: key);
 
   @override
@@ -25,10 +27,15 @@ class NasaPictureGridView extends StatelessWidget {
       ),
       shrinkWrap: true,
       itemCount: pictures.length,
-      itemBuilder: (context, index) => GestureDetector(
-        onTap: () => onItemTapped(pictures[index], context),
-        child: NasaPictureItem(picture: pictures[index]),
-      ),
+      itemBuilder: (context, index) {
+        if (index == pictures.length - 3) {
+          onListEndReached();
+        }
+        return GestureDetector(
+          onTap: () => onItemTapped(pictures[index], context),
+          child: NasaPictureItem(picture: pictures[index]),
+        );
+      },
     );
   }
 }
