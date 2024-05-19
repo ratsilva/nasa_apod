@@ -55,6 +55,7 @@ class _NasaPictureListProviderState extends State<NasaPictureListProvider> {
   }
 
   void _handleOnItemTapped(NasaPicture picture, BuildContext context) {
+    FocusScope.of(context).unfocus();
     context.pushNamed(
       NasaPictureRoutes.details.name,
       extra: NasaPictureDetailModuleParameters(dateTime: picture.dateTime),

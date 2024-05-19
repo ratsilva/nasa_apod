@@ -91,7 +91,7 @@ class _SuccessContent extends StatelessWidget {
 
     final searchBar = NasaPictureSearchBar(
       onChanged: onSearchChanged,
-      hint: "Search by title or date",
+      hint: "Search by title or date (dd/mm/yyyy)",
     );
 
     return Padding(

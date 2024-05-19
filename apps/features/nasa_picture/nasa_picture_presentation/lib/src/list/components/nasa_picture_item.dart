@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:core_foundation/core_foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nasa_picture_domain/nasa_picture_domain.dart';
 
@@ -37,7 +38,9 @@ class NasaPictureItem extends StatelessWidget {
               children: [
                 _CustomText(text: picture.title, style: textTheme.titleLarge!),
                 const SizedBox(height: 4),
-                _CustomText(text: picture.dateTime.toIso8601String(), style: textTheme.bodyMedium!),
+                _CustomText(
+                    text: DateFormatter().formatddMMyyyy(picture.dateTime),
+                    style: textTheme.bodyMedium!),
               ],
             ),
           ),

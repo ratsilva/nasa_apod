@@ -1,4 +1,5 @@
 import 'package:core_architecture/core_architecture.dart';
+import 'package:core_foundation/core_foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'nasa_picture.freezed.dart';
@@ -27,7 +28,7 @@ class FilterableNasaPicture with Filterable<FilterableNasaPicture> {
   @override
   Filterable<FilterableNasaPicture>? filter(String searchTerm, FilterMatcher matcher) {
     return (matcher.match(searchTerm, source.title) ||
-            matcher.match(searchTerm, source.dateTime.toIso8601String()))
+            matcher.match(searchTerm, DateFormatter().formatddMMyyyy(source.dateTime)))
         ? this
         : null;
   }

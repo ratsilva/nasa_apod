@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core_architecture/core_architecture.dart';
+import 'package:core_foundation/core_foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nasa_picture_domain/nasa_picture_domain.dart';
 
@@ -77,19 +78,16 @@ class _SuccessContent extends StatelessWidget {
           displayColor: Theme.of(context).colorScheme.onSurface,
         );
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+    return ListView(
       children: [
-        Expanded(
-          child: Hero(
-            tag: picture.url,
-            child: CachedNetworkImage(
-              imageUrl: picture.url,
-              fit: BoxFit.cover,
-              cacheKey: picture.url,
-              placeholder: (context, url) => Placeholder(),
-              errorWidget: (context, url, error) => Placeholder(),
-            ),
+        Hero(
+          tag: picture.url,
+          child: CachedNetworkImage(
+            imageUrl: picture.url,
+            fit: BoxFit.cover,
+            cacheKey: picture.url,
+            placeholder: (context, url) => Placeholder(),
+            errorWidget: (context, url, error) => Placeholder(),
           ),
         ),
         const SizedBox(height: 12),
@@ -100,7 +98,10 @@ class _SuccessContent extends StatelessWidget {
             children: [
               _CustomText(text: picture.title, style: textTheme.titleLarge!),
               const SizedBox(height: 4),
-              _CustomText(text: picture.dateTime.toIso8601String(), style: textTheme.bodyMedium!),
+              _CustomText(
+                text: DateFormatter().formatddMMyyyy(picture.dateTime),
+                style: textTheme.bodyMedium!,
+              ),
               const SizedBox(height: 4),
               _CustomText(text: picture.explanation, style: textTheme.titleSmall!),
             ],
