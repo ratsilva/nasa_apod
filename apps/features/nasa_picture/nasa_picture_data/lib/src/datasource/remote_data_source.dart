@@ -31,7 +31,6 @@ class NasaPictureTarget extends Target {
 
   @override
   Map<String, dynamic>? get queryParameters => {
-        "api_key": "FT9UYrLAH0V3NCg73f0AZjSg8US0ZL4uEHzQpgK3",
         "start_date": "2024-04-14",
         "end_date": "2024-05-16",
       };

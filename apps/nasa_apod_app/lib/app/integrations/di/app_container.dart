@@ -2,6 +2,8 @@ import 'package:core_architecture/core_architecture.dart';
 import 'package:network_service/network_service.dart';
 import 'package:storage_service/storage_service.dart';
 
+import '../environment/environment.dart';
+
 class AppContainer {
   final GetIt _getIt;
 
@@ -15,7 +17,8 @@ class AppContainer {
     _getIt.registerLazySingleton(() {
       final dio = Dio();
       dio.options.responseType = ResponseType.bytes;
-      dio.options.baseUrl = "https://api.nasa.gov/planetary";
+      dio.options.queryParameters = {"api_key": Environment.config.apikey};
+      dio.options.baseUrl = Environment.config.baseHost;
       return dio;
     });
 
