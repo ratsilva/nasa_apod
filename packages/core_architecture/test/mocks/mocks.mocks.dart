@@ -3,6 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i5;
+
+import 'package:core_architecture/src/engine/pagination/document/page_document.dart'
+    as _i3;
+import 'package:core_architecture/src/engine/pagination/source/pagination_source.dart'
+    as _i4;
 import 'package:core_architecture/src/engine/search/filter/matcher/filter_matcher.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -40,4 +46,29 @@ class MockFilterMatcher extends _i1.Mock implements _i2.FilterMatcher {
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+}
+
+/// A class which mocks [PaginationSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPaginationSource<T extends _i3.PageDocument, Params> extends _i1.Mock
+    implements _i4.PaginationSource<T, Params> {
+  @override
+  _i5.Stream<Set<T>> docPageFrom(
+    T? document,
+    int? size,
+    Params? params,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #docPageFrom,
+          [
+            document,
+            size,
+            params,
+          ],
+        ),
+        returnValue: _i5.Stream<Set<T>>.empty(),
+        returnValueForMissingStub: _i5.Stream<Set<T>>.empty(),
+      ) as _i5.Stream<Set<T>>);
 }
