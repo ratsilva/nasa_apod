@@ -58,5 +58,26 @@ void main() {
       expect(
           () async => await storage.get(key), throwsA(KeyValueStorageException.noValueFound(key)));
     });
+
+    group("filter", () {
+      test("when there are matches with keyPrefix", () async {
+        await storage.put({"key_1": "value_1"}, "key_1");
+        await storage.put({"key_2": "value_2"}, "key_2");
+
+        final result = await storage.filter("key");
+
+        expect(result[0], equals({"key_1": "value_1"}));
+        expect(result[1], equals({"key_2": "value_2"}));
+      });
+
+      test("when there are no matches with keyPrefix", () async {
+        await storage.put({"key_1": "value_1"}, "key_1");
+        await storage.put({"key_2": "value_2"}, "key_2");
+
+        final result = await storage.filter("wrong_key");
+
+        expect(result.length, 0);
+      });
+    });
   });
 }

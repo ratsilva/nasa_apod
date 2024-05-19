@@ -18,6 +18,18 @@ class StorageService {
     return deserializer(json);
   }
 
+  /// Gets a list of [Model] associated with provided [keyPrefix].
+  ///
+  /// This method will throw a [KeyValueStorageException] error if no value is found in key value
+  /// storage.
+  Future<List<Model>> filter<Model>(
+    String keyPrefix,
+    Model Function(Map<String, dynamic>) deserializer,
+  ) async {
+    final jsons = await _storage.filter(keyPrefix);
+    return jsons.map((json) => deserializer(json)).toList();
+  }
+
   /// Saves a value [Model] associating with provided [key].
   ///
   /// Saving a model that has already being saved will replace it's contents in the key value

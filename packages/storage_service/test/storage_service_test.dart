@@ -54,6 +54,20 @@ void main() {
     });
   });
 
+  group("filter method", () {
+    setUp(() {
+      when(storage.filter(key)).thenAnswer((_) => Future.value([json]));
+    });
+
+    test("should retrieve value when filter matches", () async {
+      final result = await storageService.filter<String>(key, (json) => json[key]);
+
+      expect(result, [value]);
+
+      verify(storage.filter(key)).called(1);
+    });
+  });
+
   group("put method", () {
     setUp(() {
       when(storage.put(json, key)).thenAnswer((_) => Future.value(json));

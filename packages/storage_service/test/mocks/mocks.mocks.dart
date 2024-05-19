@@ -67,6 +67,19 @@ class MockKeyValueStorage extends _i1.Mock implements _i3.KeyValueStorage {
         returnValueForMissingStub:
             _i4.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
       ) as _i4.Future<Map<String, dynamic>>);
+
+  @override
+  _i4.Future<List<Map<String, dynamic>>> filter(String? keyPrefix) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #filter,
+          [keyPrefix],
+        ),
+        returnValue: _i4.Future<List<Map<String, dynamic>>>.value(
+            <Map<String, dynamic>>[]),
+        returnValueForMissingStub: _i4.Future<List<Map<String, dynamic>>>.value(
+            <Map<String, dynamic>>[]),
+      ) as _i4.Future<List<Map<String, dynamic>>>);
 }
 
 /// A class which mocks [PathProvider].

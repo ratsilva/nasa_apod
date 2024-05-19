@@ -29,4 +29,13 @@ class HiveKeyValueStorage extends KeyValueStorage {
     await box.put(key, value);
     return value;
   }
+
+  @override
+  Future<List<Map<String, dynamic>>> filter(String keyPrefix) async {
+    final box = await _hiveBoxProvider.getBox();
+    return box.keys
+        .where((key) => (key as String).startsWith(keyPrefix))
+        .map((key) => Map<String, dynamic>.from(box.get(key) as Map))
+        .toList();
+  }
 }
