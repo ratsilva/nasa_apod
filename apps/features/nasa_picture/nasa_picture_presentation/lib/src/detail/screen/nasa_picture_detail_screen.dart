@@ -82,13 +82,15 @@ class _SuccessContent extends StatelessWidget {
       children: [
         Hero(
           tag: picture.url,
-          child: CachedNetworkImage(
-            imageUrl: picture.url,
-            fit: BoxFit.cover,
-            cacheKey: picture.url,
-            placeholder: (context, url) => Placeholder(),
-            errorWidget: (context, url, error) => Placeholder(),
-          ),
+          child: picture.isValidImage
+              ? CachedNetworkImage(
+                  imageUrl: picture.url,
+                  fit: BoxFit.cover,
+                  cacheKey: picture.url,
+                  placeholder: (context, url) => LinearProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                )
+              : Icon(Icons.error),
         ),
         const SizedBox(height: 12),
         Padding(

@@ -8,6 +8,8 @@ class NasaPictureDto {
   final String title;
   final String explanation;
   final String url;
+  @JsonKey(name: "media_type")
+  final String mediaType;
   @JsonKey(name: "date")
   final DateTime dateTime;
 
@@ -15,6 +17,7 @@ class NasaPictureDto {
     required this.title,
     required this.explanation,
     required this.url,
+    required this.mediaType,
     required this.dateTime,
   });
 
@@ -26,6 +29,7 @@ class NasaPictureDto {
         title: this.title,
         explanation: this.explanation,
         url: this.url,
+        isValidImage: this.mediaType == "image",
         dateTime: this.dateTime,
       );
 }

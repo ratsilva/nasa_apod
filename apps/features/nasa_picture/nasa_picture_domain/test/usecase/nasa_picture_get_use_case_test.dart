@@ -26,6 +26,7 @@ void main() {
       title: "title",
       explanation: "explanation",
       url: "url",
+      isValidImage: true,
       dateTime: dateTime,
     );
     final mockResponse = Result<NasaPicture, NasaPictureGetException>.success(picture);

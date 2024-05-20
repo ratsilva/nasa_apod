@@ -11,6 +11,7 @@ void main() {
       title: "title",
       explanation: "explanation",
       url: "url",
+      isValidImage: true,
       dateTime: DateTime(2024, 1, 1),
     );
 

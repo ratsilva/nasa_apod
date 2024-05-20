@@ -10,6 +10,7 @@ class NasaPicture with _$NasaPicture {
     required String title,
     required String explanation,
     required String url,
+    required bool isValidImage,
     required DateTime dateTime,
   }) = _NasaPicture;
 }

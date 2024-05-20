@@ -19,6 +19,7 @@ mixin _$NasaPicture {
   String get title => throw _privateConstructorUsedError;
   String get explanation => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
+  bool get isValidImage => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -32,7 +33,12 @@ abstract class $NasaPictureCopyWith<$Res> {
           NasaPicture value, $Res Function(NasaPicture) then) =
       _$NasaPictureCopyWithImpl<$Res, NasaPicture>;
   @useResult
-  $Res call({String title, String explanation, String url, DateTime dateTime});
+  $Res call(
+      {String title,
+      String explanation,
+      String url,
+      bool isValidImage,
+      DateTime dateTime});
 }
 
 /// @nodoc
@@ -51,6 +57,7 @@ class _$NasaPictureCopyWithImpl<$Res, $Val extends NasaPicture>
     Object? title = null,
     Object? explanation = null,
     Object? url = null,
+    Object? isValidImage = null,
     Object? dateTime = null,
   }) {
     return _then(_value.copyWith(
@@ -66,6 +73,10 @@ class _$NasaPictureCopyWithImpl<$Res, $Val extends NasaPicture>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
+      isValidImage: null == isValidImage
+          ? _value.isValidImage
+          : isValidImage // ignore: cast_nullable_to_non_nullable
+              as bool,
       dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -82,7 +93,12 @@ abstract class _$$NasaPictureImplCopyWith<$Res>
       __$$NasaPictureImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, String explanation, String url, DateTime dateTime});
+  $Res call(
+      {String title,
+      String explanation,
+      String url,
+      bool isValidImage,
+      DateTime dateTime});
 }
 
 /// @nodoc
@@ -99,6 +115,7 @@ class __$$NasaPictureImplCopyWithImpl<$Res>
     Object? title = null,
     Object? explanation = null,
     Object? url = null,
+    Object? isValidImage = null,
     Object? dateTime = null,
   }) {
     return _then(_$NasaPictureImpl(
@@ -114,6 +131,10 @@ class __$$NasaPictureImplCopyWithImpl<$Res>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
+      isValidImage: null == isValidImage
+          ? _value.isValidImage
+          : isValidImage // ignore: cast_nullable_to_non_nullable
+              as bool,
       dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -129,6 +150,7 @@ class _$NasaPictureImpl implements _NasaPicture {
       {required this.title,
       required this.explanation,
       required this.url,
+      required this.isValidImage,
       required this.dateTime});
 
   @override
@@ -138,11 +160,13 @@ class _$NasaPictureImpl implements _NasaPicture {
   @override
   final String url;
   @override
+  final bool isValidImage;
+  @override
   final DateTime dateTime;
 
   @override
   String toString() {
-    return 'NasaPicture(title: $title, explanation: $explanation, url: $url, dateTime: $dateTime)';
+    return 'NasaPicture(title: $title, explanation: $explanation, url: $url, isValidImage: $isValidImage, dateTime: $dateTime)';
   }
 
   @override
@@ -154,13 +178,15 @@ class _$NasaPictureImpl implements _NasaPicture {
             (identical(other.explanation, explanation) ||
                 other.explanation == explanation) &&
             (identical(other.url, url) || other.url == url) &&
+            (identical(other.isValidImage, isValidImage) ||
+                other.isValidImage == isValidImage) &&
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, title, explanation, url, dateTime);
+      Object.hash(runtimeType, title, explanation, url, isValidImage, dateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -174,6 +200,7 @@ abstract class _NasaPicture implements NasaPicture {
       {required final String title,
       required final String explanation,
       required final String url,
+      required final bool isValidImage,
       required final DateTime dateTime}) = _$NasaPictureImpl;
 
   @override
@@ -182,6 +209,8 @@ abstract class _NasaPicture implements NasaPicture {
   String get explanation;
   @override
   String get url;
+  @override
+  bool get isValidImage;
   @override
   DateTime get dateTime;
   @override

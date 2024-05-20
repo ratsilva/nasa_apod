@@ -11,6 +11,7 @@ NasaPictureDto _$NasaPictureDtoFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       explanation: json['explanation'] as String,
       url: json['url'] as String,
+      mediaType: json['media_type'] as String,
       dateTime: DateTime.parse(json['date'] as String),
     );
 
@@ -19,5 +20,6 @@ Map<String, dynamic> _$NasaPictureDtoToJson(NasaPictureDto instance) =>
       'title': instance.title,
       'explanation': instance.explanation,
       'url': instance.url,
+      'media_type': instance.mediaType,
       'date': instance.dateTime.toIso8601String(),
     };

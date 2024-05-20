@@ -21,12 +21,14 @@ void main() {
       title: "title",
       explanation: "explanation",
       url: "url",
+      mediaType: "image",
       dateTime: DateTime(2024, 1, 1),
     );
     dto2 = NasaPictureDto(
       title: "title2",
       explanation: "explanation2",
       url: "url2",
+      mediaType: "image",
       dateTime: DateTime(2024, 1, 2),
     );
     params = NasaPictureDocumentParams(DateTime(2024, 3, 1), DateTime(2024, 2, 1));

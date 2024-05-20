@@ -35,6 +35,7 @@ void main() {
         title: "title",
         explanation: "explanation",
         url: "url",
+        mediaType: "image",
         dateTime: dateTime,
       );
 
@@ -87,6 +88,7 @@ void main() {
         title: "title",
         explanation: "explanation",
         url: "url",
+        mediaType: "image",
         dateTime: dateTime,
       );
 
