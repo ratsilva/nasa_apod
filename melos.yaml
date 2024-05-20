@@ -14,15 +14,15 @@ scripts:
   ###############################################
   ##              BUILD COMMANDS               ##
   ###############################################
-  build:pub_get:all:
+  pub_get:
     run: |
       fvm flutter clean && \
       fvm flutter pub get
     exec:
-      concurrency: 6
+      concurrency: 1
     description: Clean Flutter package and install dependencies
 
-  build:codegen:
+  codegen:
     run: fvm flutter pub run build_runner build --delete-conflicting-outputs
     exec:
       concurrency: 1
@@ -30,3 +30,39 @@ scripts:
     packageFilters:
       dependsOn: "build_runner"
     description: Run code generation using build_runner in a specific package
+
+  ###############################################
+  ##              TEST COMMANDS                ##
+  ###############################################
+  test:
+    run: fvm flutter test --no-pub --reporter compact
+    exec:
+      concurrency: 1
+    packageFilters:
+      dirExists:
+        - test
+    description: Run `flutter test` for a specific package.
+
+  test:all:
+    run: melos run test --no-select
+    exec:
+      concurrency: 1
+    description: Run all Flutter tests in this project.
+
+  ###############################################
+  ##               RUN COMMANDS                ##
+  ###############################################
+  run:app:
+    exec: fvm flutter run 'MELOS_ROOT_PATH/apps/nasa_apod_app/lib/main.dart'
+    packageFilters:
+      scope: "nasa_apod_app"
+
+  run:prod-app:
+    exec: fvm flutter run --release 'MELOS_ROOT_PATH/apps/nasa_apod_app/lib/main.dart'
+    packageFilters:
+      scope: "nasa_apod_app"
+
+  run:profile-app:
+    exec: fvm flutter run --profile 'MELOS_ROOT_PATH/apps/nasa_apod_app/lib/main.dart'
+    packageFilters:
+      scope: "nasa_apod_app"
