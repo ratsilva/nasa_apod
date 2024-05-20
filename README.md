@@ -10,6 +10,11 @@ Astronomy Picture of the Day App is a flutter project built using the best pract
 The Astronomy Picture of the Day App is a simple application that retrieves data from [NASA API](https://api.nasa.gov/) (click Browse APIs and check APOD) and shows a gallery with a detail screen.
 
 <p>
+    <img src="misc/application.gif" width="250" />
+    <img src="misc/screenshots/picture_1.jpg" width="250"/>
+    <img src="misc/screenshots/picture_2.jpg" width="250" />
+    <img src="misc/screenshots/picture_3.jpg" width="250" />
+    <img src="misc/screenshots/picture_4.jpg" width="250" />
 </p>
 
 ## Tech-Stack
